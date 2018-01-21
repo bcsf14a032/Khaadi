@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:background="@drawable/k1"
+    tools:context="com.example.lenovo.khaadi.MainActivity">
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:text="Man"
+        android:id="@+id/man"
+        android:textSize="20sp"
+        android:background="@drawable/button_state"
+        android:layout_alignBaseline="@+id/woman"
+        android:layout_alignBottom="@+id/woman"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:text="Woman"
+        android:id="@+id/woman"
+        android:textSize="20sp"
+        android:background="@drawable/button_state"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/man" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:textSize="20sp"
+        android:background="@drawable/button_state"
+        android:text="kids"
+        android:id="@+id/kids"
+        android:layout_below="@+id/woman"
+        android:layout_alignStart="@+id/woman"
+        android:layout_marginTop="50dp" />
+
+
+</RelativeLayout>

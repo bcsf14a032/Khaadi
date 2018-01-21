@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Khaadi</string>
+    <string name="menDT_prompt">Choose a Dress Type</string>
+    <string-array name="men_dressType">
+        <item>Choose a Dress Type</item>
+        <item>Basic Kurta</item>
+        <item>Kurta Shalwar</item>
+        <item>Shalwar Kameez</item>
+        <item>Short Kurta</item>
+        <item>Pajama</item>
+        <item>Shalwar</item>
+    </string-array>
+
+    <string name="womenDT_prompt">Choose a Dress Type</string>
+    <string-array name="women_dressType">
+        <item>Choose a Dress Type</item>
+        <item>Basic Kurta</item>
+        <item>Kurta Shalwar</item>
+        <item>Semi Formals</item>
+        <item>Semi Formals</item>
+        <item>Casual</item>
+        <item>Pants</item>
+        <item>Tights</item>
+        <item>Shalwar</item>
+    </string-array>
+
+    <string name="kidDT_prompt">Choose a Dress Type</string>
+    <string-array name="kid_dressType">
+
+        <item>Choose a Dress Type</item>
+        <item>Kurta</item>
+        <item>Kurta Shalwar</item>
+        <item>Kurta Pajama</item>
+        <item>Formals</item>
+        <item>pants</item>
+        <item>Shalwar</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/k1"
+    tools:context=".kidsdashboard">
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:text="Add New Dresses"
+        android:id="@+id/addK"
+        android:textSize="20sp"
+        android:background="@drawable/button_state"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="210dp" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:textSize="20sp"
+        android:background="@drawable/button_state"
+        android:text="Show Dresses"
+        android:id="@+id/showk"
+        android:layout_below="@+id/addK"
+        android:layout_alignStart="@+id/addK"
+        android:layout_marginTop="50dp" />
+
+</RelativeLayout>

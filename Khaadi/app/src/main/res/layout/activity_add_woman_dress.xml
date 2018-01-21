@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/k1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.lenovo.khaadi.addWomanDress"
+    android:weightSum="1">
+    <EditText
+
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Dress Code"
+        android:padding="2sp"
+        android:id="@+id/womanDId"
+        android:textColor="@color/mycolor"
+        android:background="@drawable/pressbutton"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:padding="2sp"
+        android:id="@+id/womenType"
+        style="@style/mys"
+        android:prompt="@string/menDT_prompt"
+        android:entries="@array/women_dressType"
+        android:background="@drawable/pressbutton"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:inputType="number"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:padding="2sp"
+        android:id="@+id/wquantity"
+        android:textColor="@color/mycolor"
+        android:hint="Quantity"
+        android:background="@drawable/pressbutton"
+        android:layout_marginTop="40dp"
+
+        android:layout_marginLeft="20dp"/>
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:text="Add Dress"
+        android:id="@+id/addDressW"
+        android:textSize="20sp"
+        android:background="@drawable/button_state"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_weight="0.08" />
+
+
+</LinearLayout>
