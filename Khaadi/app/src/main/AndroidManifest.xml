@@ -26,31 +26,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".mandashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <![CDATA[
+
         >
-        <activity
-            android:name=".womandashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".kidsdashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+        ]]>
         <activity
             android:name=".addManDresses"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".addWomanDress"
-            android:theme="@style/AppTheme.NoActionBar" />
+            />
         <activity
             android:name=".addKidsDresses"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".showManDresses"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".showWomanDresses"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".showKidsDresses"
-            android:theme="@style/AppTheme.NoActionBar" ></activity>
+            />
+        <activity android:name=".showManDresses" />
+        <activity android:name=".showWomanDresses" />
+        <activity android:name=".showKidsDresses" />
+        <activity android:name=".UpdateDress"></activity>
     </application>
 
 </manifest>

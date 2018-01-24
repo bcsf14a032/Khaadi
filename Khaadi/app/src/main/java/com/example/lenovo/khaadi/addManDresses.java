@@ -2,10 +2,15 @@ package com.example.lenovo.khaadi;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +35,11 @@ public class addManDresses extends AppCompatActivity {
         quantity=(EditText)findViewById(R.id.quantity);
         addMan_Dress=(Button)findViewById(R.id.addDressM);
         DB_Helper=new DBHelper(this);
+        ActionBar ab = getSupportActionBar();
+        ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#461F00")));
+        ab.setTitle(Html.fromHtml("<font color='Brown'><b>Add Man Dresses</b></font>"));
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setHomeButtonEnabled(true);
         addMan_Dress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +60,17 @@ public class addManDresses extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 

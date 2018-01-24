@@ -1,8 +1,13 @@
 package com.example.lenovo.khaadi;
 
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +31,11 @@ public class addWomanDress extends AppCompatActivity {
         quantity = (EditText) findViewById(R.id.wquantity);
         addWoMan_Dress = (Button) findViewById(R.id.addDressW);
         DB_Helper = new DBHelper(this);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setHomeButtonEnabled(true);
+        ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#461F00")));
+        ab.setTitle(Html.fromHtml("<font color='Brown'><b>Add Woman Dresses</b></font>"));
         addWoMan_Dress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,5 +53,16 @@ public class addWomanDress extends AppCompatActivity {
                 quantity.setText("");
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

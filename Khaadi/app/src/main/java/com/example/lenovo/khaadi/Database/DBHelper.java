@@ -83,6 +83,20 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return i;
     }
+    public long update(DressInfo info)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(DCODE, info.getDcoe());
+        cv.put(DTYPE, info.getDtype());
+        cv.put(CATEGORY, info.getCategory());
+        cv.put(QUANTITY,info.getQuantity());
+
+        long i=db.update(TABLE_NAME, cv, ID + "=" + info.getId(), null);
+        db.close();
+        return i;
+    }
 
     /*
         tableColumns"
@@ -108,16 +122,21 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Deletes Record Based On Email Address
      *
-     * @param dcode
+     * @param id
      * @return
      */
-    public boolean delete_row(String dcode) {
+    public boolean delete_row(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE_NAME, DCODE + "=" + dcode, null);
+        db.delete(TABLE_NAME, ID + "=" + id, null);
         db.close();
         return false;
     }
-
+    public void Delete_Item(DressInfo info)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+TABLE_NAME+" WHERE "+ID+"='"+info.getId()+"'");
+        db.close();
+    }
 
     public ArrayList getAll() {
         ArrayList<DressInfo> ui = new ArrayList<>();

@@ -20,21 +20,21 @@ public class MainActivity extends AppCompatActivity {
         man.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,mandashboard.class);
+                Intent intent=new Intent(MainActivity.this,showManDresses.class);
                 startActivity(intent);
             }
         });
         woman.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,womandashboard.class);
+                Intent intent=new Intent(MainActivity.this,showWomanDresses.class);
                 startActivity(intent);
             }
         });
         kids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,kidsdashboard.class);
+                Intent intent=new Intent(MainActivity.this,showKidsDresses.class);
                 startActivity(intent);
             }
         });

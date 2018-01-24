@@ -2,7 +2,6 @@
     <string name="app_name">Khaadi</string>
     <string name="menDT_prompt">Choose a Dress Type</string>
     <string-array name="men_dressType">
-        <item>Choose a Dress Type</item>
         <item>Basic Kurta</item>
         <item>Kurta Shalwar</item>
         <item>Shalwar Kameez</item>
@@ -12,11 +11,9 @@
     </string-array>
 
     <string name="womenDT_prompt">Choose a Dress Type</string>
-    <string-array name="women_dressType">
-        <item>Choose a Dress Type</item>
+    <string-array name="women_dressType" id="women_dressType">
         <item>Basic Kurta</item>
         <item>Kurta Shalwar</item>
-        <item>Semi Formals</item>
         <item>Semi Formals</item>
         <item>Casual</item>
         <item>Pants</item>
@@ -26,14 +23,37 @@
 
     <string name="kidDT_prompt">Choose a Dress Type</string>
     <string-array name="kid_dressType">
-
-        <item>Choose a Dress Type</item>
-        <item>Kurta</item>
+        <item>Basic Kurta</item>
         <item>Kurta Shalwar</item>
         <item>Kurta Pajama</item>
         <item>Formals</item>
         <item>pants</item>
         <item>Shalwar</item>
+    </string-array>
+    <string name="category_prompt">Choose Category</string>
+    <string-array name="Category">
+
+        <item>Man</item>
+        <item>Woman</item>
+        <item>Kids</item>
+
+    </string-array>
+    <string-array name="all_dressType">
+
+        <item>Basic Kurta</item>
+        <item>Kurta Shalwar</item>
+        <item>Kurta Pajama</item>
+        <item>Short Kurta</item>
+
+        <item>Kurta Shalwar</item>
+        <item>Shalwar Kameez</item>
+        <item>Formals</item>
+        <item>Semi Formals</item>
+        <item>Casual</item>
+        <item>pants</item>
+        <item>Shalwar</item>
+        <item>Pajama</item>
+        <item>Pants</item>
     </string-array>
 
 </resources>
