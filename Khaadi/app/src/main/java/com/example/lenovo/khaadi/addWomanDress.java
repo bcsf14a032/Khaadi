@@ -1,5 +1,6 @@
 package com.example.lenovo.khaadi;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,7 +22,7 @@ public class addWomanDress extends AppCompatActivity {
     Spinner dress_type;
     Button addWoMan_Dress;
     DBHelper DB_Helper;
-
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,28 +32,44 @@ public class addWomanDress extends AppCompatActivity {
         quantity = (EditText) findViewById(R.id.wquantity);
         addWoMan_Dress = (Button) findViewById(R.id.addDressW);
         DB_Helper = new DBHelper(this);
+        sessionManager=new SessionManager(this);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setHomeButtonEnabled(true);
         ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#461F00")));
         ab.setTitle(Html.fromHtml("<font color='Brown'><b>Add Woman Dresses</b></font>"));
+
+
         addWoMan_Dress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long rid = DB_Helper.insert(dress_code.getText().toString(), dress_type.getSelectedItem().toString(), "Woman", Integer.parseInt(quantity.getText().toString()));
-                Cursor b = DB_Helper.read(rid);
-                String[] rows = new String[b.getCount()];
-                while (b.moveToNext()) {
-                    rows[b.getPosition()] = "ID: " + b.getInt(b.getColumnIndex(DBHelper.ID))
-                            + "\n" + "DCODE: " + b.getString(b.getColumnIndex(DBHelper.DCODE));
-                }
-                Toast.makeText(addWomanDress.this, dress_type.getSelectedItem() + " added", Toast.LENGTH_LONG).show();
+                if(dress_code.getText().toString().equals("") || quantity.getText().toString().equals(""))
+                {
+                    Toast.makeText(addWomanDress.this,"Please fill all fields",Toast.LENGTH_LONG).show();
 
-                b.close();
-                dress_code.setText("");
-                quantity.setText("");
+                }
+                else {
+                   boolean rid = DB_Helper.insert(dress_code.getText().toString(), dress_type.getSelectedItem().toString(), "Woman", Integer.parseInt(quantity.getText().toString()));
+//                    Cursor b = DB_Helper.read(rid);
+//                    String[] rows = new String[b.getCount()];
+//                    while (b.moveToNext()) {
+//                        rows[b.getPosition()] = "ID: " + b.getInt(b.getColumnIndex(DBHelper.ID))
+//                                + "\n" + "DCODE: " + b.getString(b.getColumnIndex(DBHelper.DCODE));
+//                    }
+                    if(rid==false){
+                        Toast.makeText(addWomanDress.this, "dress code already exist", Toast.LENGTH_LONG).show();
+                        return;}
+                    else
+                    {
+                        Toast.makeText(addWomanDress.this, dress_type.getSelectedItem() + " added", Toast.LENGTH_LONG).show();
+                    }
+                    //b.close()
+                    dress_code.setText("");
+                    quantity.setText("");
+                }
             }
         });
+        sessionManager.checkLogin();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -60,6 +77,8 @@ public class addWomanDress extends AppCompatActivity {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
+                Intent intent=new Intent(addWomanDress.this,showWomanDresses.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

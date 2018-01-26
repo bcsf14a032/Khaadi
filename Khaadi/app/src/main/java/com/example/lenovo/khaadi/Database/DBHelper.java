@@ -5,6 +5,8 @@ import com.example.lenovo.khaadi.Models.DressInfo;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "DressStock";
+   // public static final String TABLE_NAME2 = "Users";
 
     //COLUMN NAMES
     public static final String ID = "id";
@@ -70,18 +73,28 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param category takes a string type address
      * @return true when data inserted false when failed
      */
-    public long insert(String code, String dtype,String category, int quantity) {
+    public boolean insert(String code, String dtype,String category, int quantity) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(DCODE, code);
-        cv.put(DTYPE, dtype);
-        cv.put(CATEGORY, category);
-        cv.put(QUANTITY,quantity);
-        long i = db.insert(TABLE_NAME, null, cv);
-        Log.d("Database_helper", String.valueOf(i));
-        //be sure to close database after work is done
-        db.close();
-        return i;
+        boolean b;
+        Cursor c=db.rawQuery("SELECT * FROM "+ TABLE_NAME+" WHERE "+DCODE+"='"+code+"'", null);
+        if(c.moveToFirst())
+        {
+           b=false;
+        }
+        else
+        {
+            ContentValues cv = new ContentValues();
+            cv.put(DCODE, code);
+            cv.put(DTYPE, dtype);
+            cv.put(CATEGORY, category);
+            cv.put(QUANTITY,quantity);
+            long i = db.insert(TABLE_NAME, null, cv);
+            Log.d("Database_helper", String.valueOf(i));
+            //be sure to close database after work is done
+            db.close();
+            b=true;
+        }
+        return b;
     }
     public long update(DressInfo info)
     {
@@ -224,4 +237,48 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return ui;
     }
+    public ArrayList<Cursor> getData(String Query){
+        //get writable database
+        SQLiteDatabase sqlDB = this.getWritableDatabase();
+        String[] columns = new String[] { "message" };
+        //an array list of cursor to save two cursors one has results from the query
+        //other cursor stores error message if any errors are triggered
+        ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
+        MatrixCursor Cursor2= new MatrixCursor(columns);
+        alc.add(null);
+        alc.add(null);
+
+        try{
+            String maxQuery = Query ;
+            //execute the query results will be save in Cursor c
+            Cursor c = sqlDB.rawQuery(maxQuery, null);
+
+            //add value to cursor2
+            Cursor2.addRow(new Object[] { "Success" });
+
+            alc.set(1,Cursor2);
+            if (null != c && c.getCount() > 0) {
+
+                alc.set(0,c);
+                c.moveToFirst();
+
+                return alc ;
+            }
+            return alc;
+        } catch(SQLException sqlEx){
+            Log.d("printing exception", sqlEx.getMessage());
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        } catch(Exception ex){
+            Log.d("printing exception", ex.getMessage());
+
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        }
+    }
+
 }

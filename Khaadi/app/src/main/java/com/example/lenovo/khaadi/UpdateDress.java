@@ -29,6 +29,7 @@ public class UpdateDress extends AppCompatActivity implements AdapterView.OnItem
     Button update_Dress;
     DBHelper DB_Helper;
     Intent in,categoryBased_intent;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,8 @@ public class UpdateDress extends AppCompatActivity implements AdapterView.OnItem
         update_Dress = (Button) findViewById(R.id.editDress);
         category = (Spinner) findViewById(R.id.editCategory);
         DB_Helper = new DBHelper(this);
+        sessionManager=new SessionManager(this);
+        sessionManager.checkLogin();
 
         ActionBar ab = getSupportActionBar();
         ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#461F00")));
@@ -54,6 +57,7 @@ public class UpdateDress extends AppCompatActivity implements AdapterView.OnItem
 
                 DB_Helper.update(info);
                 if(in.getStringExtra("category").equals("Man")) {
+
                     categoryBased_intent = new Intent(UpdateDress.this, showManDresses.class);
                 }
                 else if(in.getStringExtra("category").equals("Woman")) {
@@ -63,7 +67,8 @@ public class UpdateDress extends AppCompatActivity implements AdapterView.OnItem
                 {
                     categoryBased_intent = new Intent(UpdateDress.this, showKidsDresses.class);
                 }
-                startActivity(categoryBased_intent);
+                UpdateDress.this.finish();
+                //startActivity(categoryBased_intent);
             }
         });
 
@@ -71,22 +76,24 @@ public class UpdateDress extends AppCompatActivity implements AdapterView.OnItem
     @Override
     protected void onStart() {
         super.onStart();
-        in = getIntent();
-        if (in != null) {
-            dress_code.setText(in.getStringExtra("dcode"));
-            quantity.setText(String.valueOf(in.getIntExtra("quantity", 0)));
-            String[] arr = getResources().getStringArray(R.array.women_dressType);
-            dress_type.setSelection(getIndexOf(arr,in.getStringExtra("dtype")));
-            String[] arr1 = getResources().getStringArray(R.array.Category);
-          //  category.setSelection(Arrays.asList(arr).indexOf(in.getStringExtra("category")));
-            category.setSelection(getIndexOf(arr1,in.getStringExtra("category")));
-
-
-        }
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(this,
                 R.array.Category, android.R.layout.simple_spinner_item);
         category.setAdapter(adapter1);
         category.setOnItemSelectedListener(this);
+        in = getIntent();
+        if (in != null) {
+            dress_code.setText(in.getStringExtra("dcode"));
+            quantity.setText(String.valueOf(in.getIntExtra("quantity", 0)));
+
+            String[] arr1 = getResources().getStringArray(R.array.Category);
+            //  category.setSelection(Arrays.asList(arr).indexOf(in.getStringExtra("category")));
+            category.setSelection(getIndexOf(arr1,in.getStringExtra("category")));
+            String[] arr = getResources().getStringArray(R.array.women_dressType);
+            dress_type.setSelection(getIndexOf(arr,in.getStringExtra("dtype")));
+
+
+        }
+        sessionManager.checkLogin();
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
@@ -95,16 +102,24 @@ public class UpdateDress extends AppCompatActivity implements AdapterView.OnItem
             ArrayAdapter adapter2 = ArrayAdapter.createFromResource(this,
                     R.array.men_dressType, android.R.layout.simple_spinner_item);
             dress_type.setAdapter(adapter2);
+            String[] arr = getResources().getStringArray(R.array.men_dressType);
+            dress_type.setSelection(getIndexOf(arr,in.getStringExtra("dtype")));
         } else if(category.getSelectedItem().equals("Woman")) {
             ArrayAdapter adapter2 = ArrayAdapter.createFromResource(this,
                     R.array.women_dressType, android.R.layout.simple_spinner_item);
             dress_type.setAdapter(adapter2);
+            String[] arr = getResources().getStringArray(R.array.women_dressType);
+            dress_type.setSelection(getIndexOf(arr,in.getStringExtra("dtype")));
         }
         else {
             ArrayAdapter adapter2 = ArrayAdapter.createFromResource(this,
                     R.array.kid_dressType, android.R.layout.simple_spinner_item);
             dress_type.setAdapter(adapter2);
+            String[] arr = getResources().getStringArray(R.array.kid_dressType);
+            dress_type.setSelection(getIndexOf(arr,in.getStringExtra("dtype")));
         }
+
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.lenovo.khaadi;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +29,7 @@ public class showWomanDresses extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<DressInfo> ui;
     DBHelper DB_Helper;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +37,18 @@ public class showWomanDresses extends AppCompatActivity {
         setContentView(R.layout.activity_show_woman_dresses);
         DB_Helper = new DBHelper(this);
 
+        //sessionManager.checkLogin();
+
         ActionBar ab = getSupportActionBar();
         ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#461F00")));
         ab.setTitle(Html.fromHtml("<font color='Brown'><b>Women Dresses</b></font>"));
         ab.setSubtitle("Add,Edit Or Delete Dresses");
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setHomeButtonEnabled(true);
-
+        sessionManager=new SessionManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewW);
         ui = new ArrayList<DressInfo>();
-
+        sessionManager.checkLogin();
     }
     @Override
     protected void onResume() {
@@ -69,7 +75,7 @@ public class showWomanDresses extends AppCompatActivity {
 
             recyclerView.setAdapter(dataAdapter);
         }
-
+        sessionManager.checkLogin();
     }
 
     @Override
@@ -104,13 +110,14 @@ public class showWomanDresses extends AppCompatActivity {
                 recyclerView.setAdapter(dataAdapter);
             }
         }
-
+        sessionManager.checkLogin();
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -119,10 +126,13 @@ public class showWomanDresses extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.addAny:
                 startActivity(new Intent(this, addWomanDress.class));
+
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
+            case R.id.logedOut:
+                sessionManager.logoutUser();
             default:
                 return super.onOptionsItemSelected(item);
         }

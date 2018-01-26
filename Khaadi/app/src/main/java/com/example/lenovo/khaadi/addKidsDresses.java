@@ -25,6 +25,7 @@ public class addKidsDresses extends AppCompatActivity {
     Button addKids_Dress;
     DBHelper DB_Helper;
     Intent in;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,8 @@ public class addKidsDresses extends AppCompatActivity {
         dress_type = (Spinner) findViewById(R.id.kidType);
         quantity = (EditText) findViewById(R.id.kquantity);
         addKids_Dress = (Button) findViewById(R.id.addDressK);
+        sessionManager=new SessionManager(this);
+
         ActionBar ab = getSupportActionBar();
         ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#461F00")));
         ab.setTitle(Html.fromHtml("<font color='Brown'><b>Add Kids Dresses</b></font>"));
@@ -42,30 +45,33 @@ public class addKidsDresses extends AppCompatActivity {
         addKids_Dress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long rid = DB_Helper.insert(dress_code.getText().toString(), dress_type.getSelectedItem().toString(), "Kids", Integer.parseInt(quantity.getText().toString()));
-                Cursor b = DB_Helper.read(rid);
-                String[] rows = new String[b.getCount()];
-                while (b.moveToNext()) {
-                    rows[b.getPosition()] = "ID: " + b.getInt(b.getColumnIndex(DBHelper.ID))
-                            + "\n" + "DCODE: " + b.getString(b.getColumnIndex(DBHelper.DCODE));
-                }
-                Toast.makeText(addKidsDresses.this, dress_type.getSelectedItem() + " added", Toast.LENGTH_LONG).show();
+                if(dress_code.getText().toString().equals("") || quantity.getText().toString().equals(""))
+                {
+                    Toast.makeText(addKidsDresses.this,"Please fill all fields",Toast.LENGTH_LONG).show();
 
-                b.close();
-                dress_code.setText("");
-                quantity.setText("");
+                }
+                else {
+                    boolean rid = DB_Helper.insert(dress_code.getText().toString(), dress_type.getSelectedItem().toString(), "Kids", Integer.parseInt(quantity.getText().toString()));
+//                    Cursor b = DB_Helper.read(rid);
+//                    String[] rows = new String[b.getCount()];
+//                    while (b.moveToNext()) {
+//                        rows[b.getPosition()] = "ID: " + b.getInt(b.getColumnIndex(DBHelper.ID))
+//                                + "\n" + "DCODE: " + b.getString(b.getColumnIndex(DBHelper.DCODE));
+//                    }
+                    if(rid==false){
+                    Toast.makeText(addKidsDresses.this, "dress code already exist", Toast.LENGTH_LONG).show();
+                        return;}
+                        else
+                    {
+                        Toast.makeText(addKidsDresses.this, dress_type.getSelectedItem() + " added", Toast.LENGTH_LONG).show();
+                    }
+                  //  b.close();
+                    dress_code.setText("");
+                    quantity.setText("");
+                }
             }
         });
-        in = getIntent();
-        if (in != null) {
-            dress_code.setText(in.getStringExtra("dcode"));
-            quantity.setText(String.valueOf(in.getIntExtra("quantity",0)));
-            String[]arr=getResources().getStringArray(R.array.women_dressType);
-            dress_type.setSelection(Arrays.asList(arr).indexOf(in.getStringExtra("dtype")));
-
-
-
-        }
+        sessionManager.checkLogin();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -73,6 +79,8 @@ public class addKidsDresses extends AppCompatActivity {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
+                Intent intent=new Intent(addKidsDresses.this,showKidsDresses.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

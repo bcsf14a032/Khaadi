@@ -26,13 +26,14 @@ public class showKidsDresses extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<DressInfo> ui;
     DBHelper DB_Helper;
-
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_kids_dresses);
         DB_Helper = new DBHelper(this);
         ui =new ArrayList<DressInfo>();
+        sessionManager=new SessionManager(this);
 
         ActionBar ab = getSupportActionBar();
         ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#461F00")));
@@ -42,8 +43,8 @@ public class showKidsDresses extends AppCompatActivity {
         ab.setHomeButtonEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewK);
-
-    }
+            sessionManager.checkLogin();
+                   }
 
 
     @Override
@@ -71,7 +72,7 @@ public class showKidsDresses extends AppCompatActivity {
 
             recyclerView.setAdapter(dataAdapter);
         }
-
+        sessionManager.checkLogin();
     }
 
     @Override
@@ -106,8 +107,7 @@ public class showKidsDresses extends AppCompatActivity {
                     recyclerView.setAdapter(dataAdapter);
                 }
             }
-
-
+        sessionManager.checkLogin();
     }
 
     @Override
@@ -116,21 +116,19 @@ public class showKidsDresses extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addAny:
                 startActivity(new Intent(this, addKidsDresses.class));
+
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
+            case R.id.logedOut:
+                sessionManager.logoutUser();
             default:
                 return super.onOptionsItemSelected(item);
         }

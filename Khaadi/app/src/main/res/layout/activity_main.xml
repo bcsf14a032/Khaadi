@@ -9,37 +9,50 @@
     android:paddingTop="16dp"
     android:background="@drawable/k1"
     tools:context="com.example.lenovo.khaadi.MainActivity">
+
     <Button
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:text="Man"
         android:id="@+id/man"
-        android:textSize="20sp"
-        android:background="@drawable/button_state"
-        android:layout_alignBaseline="@+id/woman"
-        android:layout_alignBottom="@+id/woman"
-        android:layout_centerHorizontal="true" />
-
-    <Button
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:text="Woman"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="123dp"
+        android:background="@drawable/button_state"
+        android:text="Man"
+        android:textSize="20sp" />
+
+    <Button
         android:id="@+id/woman"
-        android:textSize="20sp"
-        android:background="@drawable/button_state"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/man" />
-
-    <Button
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:textSize="20sp"
+        android:layout_alignStart="@+id/man"
+        android:layout_below="@+id/man"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_state"
+        android:text="Woman"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/kids"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/woman"
+        android:layout_below="@+id/woman"
+        android:layout_marginTop="45dp"
         android:background="@drawable/button_state"
         android:text="kids"
-        android:id="@+id/kids"
-        android:layout_below="@+id/woman"
-        android:layout_alignStart="@+id/woman"
-        android:layout_marginTop="50dp" />
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/showDb"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/kids"
+        android:layout_below="@+id/kids"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/button_state"
+        android:text="Show Databse"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>

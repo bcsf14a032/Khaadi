@@ -28,6 +28,7 @@ public class showManDresses extends AppCompatActivity {
     DBHelper DB_Helper;
 
     ArrayList<DressInfo> ui;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,10 @@ public class showManDresses extends AppCompatActivity {
         ab.setSubtitle("Add,Edit Or Delete Dresses");
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setHomeButtonEnabled(true);
+        sessionManager=new SessionManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewM);
          ui = new ArrayList<DressInfo>();
+         sessionManager.checkLogin();
 
     }
     @Override
@@ -70,7 +73,7 @@ public class showManDresses extends AppCompatActivity {
 
             recyclerView.setAdapter(dataAdapter);
         }
-
+        sessionManager.checkLogin();
     }
 
     @Override
@@ -106,7 +109,7 @@ public class showManDresses extends AppCompatActivity {
             }
         }
 
-
+        sessionManager.checkLogin();
     }
 
     @Override
@@ -124,6 +127,9 @@ public class showManDresses extends AppCompatActivity {
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
+            case R.id.logedOut:
+                sessionManager.logoutUser();
+
             default:
                 return super.onOptionsItemSelected(item);
         }

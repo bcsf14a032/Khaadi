@@ -3,6 +3,7 @@
     <item android:drawable="@color/mycolor"/>
     <item>
         <bitmap android:src="@drawable/khaadi"
+            android:gravity="center"
             />
     </item>
 </layer-list>
